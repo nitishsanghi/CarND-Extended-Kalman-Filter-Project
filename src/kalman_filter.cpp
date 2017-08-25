@@ -55,6 +55,7 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
     
     VectorXd y_(3);
     y_ << z - hx_;
+    y_(1) = atan(sin(y_(1))/cos(y_(1)));
     
     MatrixXd S_(3,3);
     S_ << H_*P_*(H_.transpose()) + R_;
@@ -65,7 +66,7 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
     if(y_(1)>3.14) {y_(1) = y_(1)-6.28;}
     if(y_(1)<-3.14) {y_(1) = y_(1)+6.28;}
     
-    //std::cout <<"Angles z = " << z(1) << " Angles hx" << hx_(1) << std::endl;
+    std::cout <<"Angles z = " << z(1) << " Angles hx" << hx_(1) << std::endl;
     //std::cout <<"x 1 = " << x_(1) << "x 2 = " << x_(0) << std::endl;
     //std::cout <<"z 1 = " << z(0)*sin(z(1)) << "x 2 = " << z(0)*cos(z(1)) << std::endl;
     
